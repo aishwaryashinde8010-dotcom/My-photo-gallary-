@@ -1,351 +1,250 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="mr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#fff0f5">
-  <title>My Photo Gallery 💗</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pink Love Gallery 💗</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-    :root {
-      --pink: #e75480;
-      --light-pink: #fff0f5;
-      --dark-pink: #9d174d;
-      --white: #ffffff;
-    }
+body {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(#fff0f5, #ffe4ec);
+  color: #9d174d;
+}
 
-    body {
-      font-family: "Segoe UI", sans-serif;
-      background: linear-gradient(180deg, #fff0f5, #fff8fb);
-      color: #653047;
-      min-height: 100vh;
-    }
+header {
+  text-align: center;
+  padding: 35px 10px;
+}
 
-    .top-line {
-      height: 5px;
-      background: linear-gradient(90deg,
-        #ffc1d6, #e75480, #ffb6c8, #e75480);
-    }
+header h1 {
+  font-size: 32px;
+  margin: 12px 0;
+}
 
-    header {
-      text-align: center;
-      padding: 35px 16px 24px;
-    }
+header p {
+  color: #c04d79;
+}
 
-    .heart {
-      font-size: 32px;
-      animation: beat 1.5s infinite;
-      display: inline-block;
-    }
+.heart {
+  font-size: 38px;
+  animation: beat 1.3s infinite;
+}
 
-    h1 {
-      color: var(--dark-pink);
-      font-size: clamp(27px, 6vw, 42px);
-      margin: 8px 0;
-      letter-spacing: 0.5px;
-    }
+@keyframes beat {
+  50% { transform: scale(1.2); }
+}
 
-    header p {
-      font-size: 14px;
-      color: #a45a78;
-      margin-top: 8px;
-    }
+.intro {
+  text-align: center;
+  background: white;
+  margin: 0 15px 25px;
+  padding: 22px 12px;
+  border-radius: 20px;
+  line-height: 1.8;
+  box-shadow: 0 5px 18px #e7548020;
+}
 
-    .pill {
-      display: inline-block;
-      background: #ffe0eb;
-      color: #a12c59;
-      border-radius: 30px;
-      padding: 8px 16px;
-      margin-top: 17px;
-      font-size: 13px;
-    }
+h2 {
+  text-align: center;
+  margin: 20px 0;
+}
 
-    main {
-      width: min(100% - 28px, 950px);
-      margin: 0 auto;
-    }
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 13px;
+  padding: 0 13px;
+}
 
-    .intro {
-      background: rgba(255, 255, 255, 0.85);
-      border: 1px solid #ffd2e1;
-      border-radius: 22px;
-      padding: 22px 16px;
-      text-align: center;
-      box-shadow: 0 8px 25px #e7548010;
-      margin-bottom: 24px;
-    }
+.card {
+  background: white;
+  padding: 8px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px #e7548025;
+}
 
-    .intro h2 {
-      font-size: 21px;
-      color: var(--dark-pink);
-      margin-bottom: 9px;
-    }
+.card img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  border-radius: 11px;
+  cursor: pointer;
+  display: block;
+}
 
-    .intro p {
-      font-size: 14px;
-      line-height: 1.7;
-      color: #89546b;
-    }
+.caption {
+  text-align: center;
+  padding: 12px 2px 7px;
+  font-size: 13px;
+  font-weight: bold;
+}
 
-    .section-title {
-      text-align: center;
-      font-size: 22px;
-      margin: 26px 0 17px;
-      color: var(--dark-pink);
-    }
+.message {
+  margin: 28px 15px;
+  padding: 25px 12px;
+  background: #ffd6e5;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 1.8;
+}
 
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 13px;
-    }
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #b04c75;
+}
 
-    .photo-card {
-      background: white;
-      padding: 8px;
-      border-radius: 17px;
-      border: 1px solid #f9d4e2;
-      box-shadow: 0 5px 16px #a12c5910;
-      overflow: hidden;
-      transition: transform 0.2s ease;
-    }
+.viewer {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #260b1dee;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+}
 
-    .photo-card:active {
-      transform: scale(0.98);
-    }
+.viewer.open {
+  display: flex;
+}
 
-    .photo-card img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      object-fit: cover;
-      border-radius: 11px;
-      cursor: pointer;
-      background: #ffe0eb;
-    }
+.viewer img {
+  max-width: 100%;
+  max-height: 85vh;
+  object-fit: contain;
+  border-radius: 12px;
+}
 
-    .caption {
-      text-align: center;
-      font-size: 13px;
-      padding: 12px 3px 8px;
-      color: #8d3658;
-      font-weight: 600;
-    }
+.close {
+  position: absolute;
+  top: 15px;
+  right: 18px;
+  font-size: 30px;
+  background: white;
+  color: #9d174d;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+}
 
-    .note {
-      text-align: center;
-      background: #ffe4ee;
-      border-radius: 20px;
-      padding: 23px 15px;
-      margin: 28px 0;
-      line-height: 1.8;
-    }
-
-    .note h2 {
-      color: var(--dark-pink);
-      font-size: 21px;
-      margin-bottom: 8px;
-    }
-
-    .note p {
-      font-size: 14px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 22px 12px 30px;
-      color: #a45a78;
-      font-size: 13px;
-    }
-
-    .viewer {
-      position: fixed;
-      inset: 0;
-      background: rgba(44, 13, 28, 0.94);
-      z-index: 10;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 18px;
-    }
-
-    .viewer.open {
-      display: flex;
-    }
-
-    .viewer img {
-      max-width: 100%;
-      max-height: 82vh;
-      object-fit: contain;
-      border-radius: 12px;
-    }
-
-    .close {
-      position: absolute;
-      right: 18px;
-      top: 18px;
-      border: 0;
-      border-radius: 50%;
-      width: 42px;
-      height: 42px;
-      background: white;
-      color: #9d174d;
-      font-size: 25px;
-      cursor: pointer;
-    }
-
-    @keyframes beat {
-      0%, 100% { transform: scale(1); }
-      50% { transform: scale(1.15); }
-    }
-
-    @media (min-width: 650px) {
-      .gallery {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 18px;
-      }
-
-      header {
-        padding-top: 48px;
-      }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
-      }
-    }
-  </style>
+@media (min-width: 650px) {
+  .gallery {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 950px;
+    margin: auto;
+  }
+}
+</style>
 </head>
 
 <body>
-  <div class="top-line"></div>
 
-  <header>
-    <div class="heart">💗</div>
-    <h1>My Photo Gallery</h1>
-    <p>A little world of beautiful memories ✨</p>
-    <div class="pill">♡ Made with love ♡</div>
-  </header>
+<header>
+  <div class="heart">💗</div>
+  <h1>My Love Gallery</h1>
+  <p>A little world of beautiful memories ✨</p>
+</header>
 
-  <main>
-    <section class="intro">
-      <h2>Welcome to My World 🌸</h2>
-      <p>
-        प्रत्येक फोटोमध्ये एक आठवण,
-        प्रत्येक आठवणीत एक सुंदर भावना. 💕
-      </p>
-    </section>
+<section class="intro">
+  <h2>Welcome to My World 🌸</h2>
+  प्रत्येक फोटोमध्ये एक आठवण,<br>
+  प्रत्येक आठवणीत एक सुंदर भावना. 💕
+</section>
 
-    <h2 class="section-title">♡ Sweet Memories ♡</h2>
+<h2>♡ Sweet Memories ♡</h2>
 
-    <section class="gallery" aria-label="Photo gallery">
-      <article class="photo-card">
-        <img
-          src="https://picsum.photos/id/1060/600/750"
-          alt="Beautiful memory 1"
-          loading="lazy">
-        <div class="caption">Beautiful Moments 🌷</div>
-      </article>
+<section class="gallery">
 
-      <article class="photo-card">
-        <img
-          src="https://picsum.photos/id/1027/600/750"
-          alt="Beautiful memory 2"
-          loading="lazy">
-        <div class="caption">Just Be You 🦋</div>
-      </article>
-
-      <article class="photo-card">
-        <img
-          src="https://picsum.photos/id/1011/600/750"
-          alt="Beautiful memory 3"
-          loading="lazy">
-        <div class="caption">Little Happiness 🌸</div>
-      </article>
-
-      <article class="photo-card">
-        <img
-          src="https://picsum.photos/id/1035/600/750"
-          alt="Beautiful memory 4"
-          loading="lazy">
-        <div class="caption">Dreamy Days ☁️</div>
-      </article>
-
-      <article class="photo-card">
-        <img
-          src="https://picsum.photos/id/1069/600/750"
-          alt="Beautiful memory 5"
-          loading="lazy">
-        <div class="caption">Pure Joy 💕</div>
-      </article>
-
-      <article class="photo-card">
-        <img
-          src="https://picsum.photos/id/1040/600/750"
-          alt="Beautiful memory 6"
-          loading="lazy">
-        <div class="caption">Forever Memories 🎀</div>
-      </article>
-    </section>
-
-    <section class="note">
-      <h2>Keep Smiling! 💖</h2>
-      <p>
-        आयुष्य सुंदर आहे. छोट्या क्षणांत आनंद शोध
-        आणि प्रत्येक दिवस खास बनव. 🌷
-      </p>
-      <p style="margin-top: 10px;">♡ Lots of love ♡</p>
-    </section>
-  </main>
-
-  <footer>
-    Made with 💗 and a little bit of magic
-  </footer>
-
-  <div class="viewer" id="viewer" role="dialog"
-       aria-label="Enlarged photo" aria-modal="true">
-    <button class="close" id="closeViewer"
-            aria-label="Close photo">×</button>
-    <img id="largePhoto" src="" alt="Enlarged gallery photo">
+  <div class="card">
+    <img src="https://picsum.photos/id/1060/600/750"
+         alt="Beautiful moments" loading="lazy">
+    <div class="caption">Beautiful Moments 🌷</div>
   </div>
 
-  <script>
-    const viewer = document.getElementById("viewer");
-    const largePhoto = document.getElementById("largePhoto");
-    const closeViewer = document.getElementById("closeViewer");
+  <div class="card">
+    <img src="https://picsum.photos/id/1027/600/750"
+         alt="Just be you" loading="lazy">
+    <div class="caption">Just Be You 🦋</div>
+  </div>
 
-    document.querySelectorAll(".photo-card img").forEach((photo) => {
-      photo.addEventListener("click", () => {
-        largePhoto.src = photo.src;
-        largePhoto.alt = photo.alt;
-        viewer.classList.add("open");
-      });
-    });
+  <div class="card">
+    <img src="https://picsum.photos/id/1011/600/750"
+         alt="Little happiness" loading="lazy">
+    <div class="caption">Little Happiness 🌸</div>
+  </div>
 
-    function closePhoto() {
-      viewer.classList.remove("open");
-      largePhoto.src = "";
-    }
+  <div class="card">
+    <img src="https://picsum.photos/id/1035/600/750"
+         alt="Dreamy days" loading="lazy">
+    <div class="caption">Dreamy Days ☁️</div>
+  </div>
 
-    closeViewer.addEventListener("click", closePhoto);
+  <div class="card">
+    <img src="https://picsum.photos/id/1069/600/750"
+         alt="Pure joy" loading="lazy">
+    <div class="caption">Pure Joy 💕</div>
+  </div>
 
-    viewer.addEventListener("click", (event) => {
-      if (event.target === viewer) closePhoto();
-    });
+  <div class="card">
+    <img src="https://picsum.photos/id/1040/600/750"
+         alt="Forever memories" loading="lazy">
+    <div class="caption">Forever Memories 🎀</div>
+  </div>
 
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") closePhoto();
-    });
-  </script>
+</section>
+
+<section class="message">
+  <h2>Keep Smiling! 💖</h2>
+  आयुष्य सुंदर आहे. छोट्या क्षणांत आनंद शोध<br>
+  आणि प्रत्येक दिवस खास बनव. 🌷
+</section>
+
+<footer>
+  Made with 💗 and a little magic
+</footer>
+
+<div class="viewer" id="viewer">
+  <button class="close" id="close">×</button>
+  <img id="largePhoto" src="" alt="Large photo">
+</div>
+
+<script>
+const viewer = document.getElementById("viewer");
+const largePhoto = document.getElementById("largePhoto");
+
+document.querySelectorAll(".card img").forEach(photo => {
+  photo.addEventListener("click", () => {
+    largePhoto.src = photo.src;
+    largePhoto.alt = photo.alt;
+    viewer.classList.add("open");
+  });
+});
+
+function closePhoto() {
+  viewer.classList.remove("open");
+  largePhoto.src = "";
+}
+
+document.getElementById("close").addEventListener("click", closePhoto);
+
+viewer.addEventListener("click", event => {
+  if (event.target === viewer) closePhoto();
+});
+
+document.addEventListener("keydown", event => {
+  if (event.key === "Escape") closePhoto();
+});
+</script>
+
 </body>
-  </html>
-  
+</html>
