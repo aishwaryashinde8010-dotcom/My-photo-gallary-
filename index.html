@@ -1,4 +1,4 @@
-index.html
+
 <!DOCTYPE html>
 <html lang="mr">
 <head>
@@ -237,3 +237,116 @@ index.html
     <div class="pill">♡ Made with love ♡</div>
   </header>
 
+  <main>
+    <section class="intro">
+      <h2>Welcome to My World 🌸</h2>
+      <p>
+        प्रत्येक फोटोमध्ये एक आठवण,
+        प्रत्येक आठवणीत एक सुंदर भावना. 💕
+      </p>
+    </section>
+
+    <h2 class="section-title">♡ Sweet Memories ♡</h2>
+
+    <section class="gallery" aria-label="Photo gallery">
+      <article class="photo-card">
+        <img
+          src="https://picsum.photos/id/1060/600/750"
+          alt="Beautiful memory 1"
+          loading="lazy">
+        <div class="caption">Beautiful Moments 🌷</div>
+      </article>
+
+      <article class="photo-card">
+        <img
+          src="https://picsum.photos/id/1027/600/750"
+          alt="Beautiful memory 2"
+          loading="lazy">
+        <div class="caption">Just Be You 🦋</div>
+      </article>
+
+      <article class="photo-card">
+        <img
+          src="https://picsum.photos/id/1011/600/750"
+          alt="Beautiful memory 3"
+          loading="lazy">
+        <div class="caption">Little Happiness 🌸</div>
+      </article>
+
+      <article class="photo-card">
+        <img
+          src="https://picsum.photos/id/1035/600/750"
+          alt="Beautiful memory 4"
+          loading="lazy">
+        <div class="caption">Dreamy Days ☁️</div>
+      </article>
+
+      <article class="photo-card">
+        <img
+          src="https://picsum.photos/id/1069/600/750"
+          alt="Beautiful memory 5"
+          loading="lazy">
+        <div class="caption">Pure Joy 💕</div>
+      </article>
+
+      <article class="photo-card">
+        <img
+          src="https://picsum.photos/id/1040/600/750"
+          alt="Beautiful memory 6"
+          loading="lazy">
+        <div class="caption">Forever Memories 🎀</div>
+      </article>
+    </section>
+
+    <section class="note">
+      <h2>Keep Smiling! 💖</h2>
+      <p>
+        आयुष्य सुंदर आहे. छोट्या क्षणांत आनंद शोध
+        आणि प्रत्येक दिवस खास बनव. 🌷
+      </p>
+      <p style="margin-top: 10px;">♡ Lots of love ♡</p>
+    </section>
+  </main>
+
+  <footer>
+    Made with 💗 and a little bit of magic
+  </footer>
+
+  <div class="viewer" id="viewer" role="dialog"
+       aria-label="Enlarged photo" aria-modal="true">
+    <button class="close" id="closeViewer"
+            aria-label="Close photo">×</button>
+    <img id="largePhoto" src="" alt="Enlarged gallery photo">
+  </div>
+
+  <script>
+    const viewer = document.getElementById("viewer");
+    const largePhoto = document.getElementById("largePhoto");
+    const closeViewer = document.getElementById("closeViewer");
+
+    document.querySelectorAll(".photo-card img").forEach((photo) => {
+      photo.addEventListener("click", () => {
+        largePhoto.src = photo.src;
+        largePhoto.alt = photo.alt;
+        viewer.classList.add("open");
+      });
+    });
+
+    function closePhoto() {
+      viewer.classList.remove("open");
+      largePhoto.src = "";
+    }
+
+    closeViewer.addEventListener("click", closePhoto);
+
+    viewer.addEventListener("click", (event) => {
+      if (event.target === viewer) closePhoto();
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePhoto();
+    });
+  </script>
+</body>
+  </html>
+  
